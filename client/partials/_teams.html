@@ -1,0 +1,23 @@
+<div>
+  <div id='add'>
+    <form action='/teams' method='post'>
+      <div class='row'>
+        <div class='form-group'>
+          <label class='text-right col-md-1'>Add:</label>
+          <input class='col-md-3' type='text' ng-model="newTeam.teamName"/>
+          <select class='col-md-1' ng-model="newTeam.sport">
+            <option ng-repeat="sport in sports" class='capitalize' value="{{ sport._id }}">{{ sport.sport }}</option>
+          </select>
+          <button class='btn btn btn-success col-md-offset-1 col-md-1' ng-click="add()" type="button">Add</button>
+        </div>
+      </div>
+    </form>
+    <hr />
+  </div>
+  <ul>
+    <div class='row li'  ng-repeat="element in teams">
+      <li><span class='col-md-4 capitalize'>{{ element.teamName }}</span><span class='col-md-2 capitalize'>{{ element.sport }}</span></li>
+      <a class='btn btn-xs btn-primary' href="#!/teams/{{ element._id }}/edit">Edit</a>
+    </div>
+  </ul>
+</div>

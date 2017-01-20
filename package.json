@@ -1,0 +1,17 @@
+{
+  "name": "players-teams",
+  "version": "1.0.0",
+  "description": "Manage players (people) and teams (groups of people)",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Robert Tichy",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.16.0",
+    "express": "^4.14.0",
+    "mongoose": "^4.7.7",
+    "node-datetime": "^1.0.0"
+  }
+}

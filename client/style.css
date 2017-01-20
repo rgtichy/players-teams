@@ -1,0 +1,18 @@
+div.li {
+  height: 2.5rem;
+}
+#ng-view {
+  padding: .2rem;
+  margin-top: .5rem;
+  height: 50rem;
+  border-radius: .2rem;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  background-color: #EEE;
+}
+.capitalize {
+  text-transform: capitalize;
+}
+.form-group {
+  vertical-align: bottom;
+}

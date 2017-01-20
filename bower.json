@@ -1,0 +1,21 @@
+{
+  "name": "players-teams",
+  "description": "Manage players (people) and teams (groups of people)",
+  "main": "server.js",
+  "authors": [
+    "Robert Tichy"
+  ],
+  "license": "ISC",
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "^1.6.1",
+    "angular-route": "^1.6.1"
+  }
+}

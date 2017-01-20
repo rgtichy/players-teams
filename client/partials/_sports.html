@@ -1,0 +1,20 @@
+<div>
+  <div id='add'>
+    <form action='/sports' method='post'>
+      <div class='row'>
+        <div class='form-group'>
+          <label class='text-right col-md-1'>Add:</label>
+          <input class='col-md-3' type='text' ng-model="newSport.sport"/>
+          <button class='btn btn btn-success col-md-offset-1 col-md-1' ng-click="add()" type="button">Add</button>
+        </div>
+      </div>
+    </form>
+    <hr />
+  </div>
+  <ul>
+    <div class='row li'  ng-repeat="element in sports">
+      <li class='col-md-4 capitalize'>{{ element.sport }}</li>
+      <a class='btn btn-xs btn-primary' href="#!/sports/{{ element._id }}/edit">Edit</a>
+    </div>
+  </ul>
+</div>

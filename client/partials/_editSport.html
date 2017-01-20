@@ -1,0 +1,19 @@
+<div>
+  <div class='row'>
+    <h4 class='col-md-4'>Edit or Delete Sport</h4>
+  </div>
+  <p class="col-md-4 text-left">Appearance: <span class='capitalize' ng-model="sport.sport">{{sport.sport}}</span></p>
+  <hr />
+  <form>
+    <div class='form-group'>
+      <div class='row'>
+        <label class="col-md-1 text-right">Name:</label>
+        <input class='col-md-3' type='text' ng-model="editSport.sport" value="{{editSport.sport}}"/>
+      </div>
+    </div>
+    <div class='row'>
+      <button class="btn btn-success col-md-offset-3 col-md-1" href="#!/" type='button' ng-click="update()">Update</button>
+      <a class="btn btn-danger col-md-offset-1 col-md-1" href="#!/" ng-click="delete()">Delete</a>
+    </div>
+  </form>
+</div>
