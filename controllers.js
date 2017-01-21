@@ -60,6 +60,9 @@ const PlayersController={
 const TeamsController={
   index: function(req,res){
     Team.find({}).sort({teamName: 1})
+    .populate('sport')
+    .populate('players')
+    .exec()
     .then(function(teams){
         res.json(teams);
     })
@@ -67,14 +70,17 @@ const TeamsController={
         res.status(500).json(err);
     });
   },
+  show: function(req,res){
+    Team.findById(req.params.id)
+    .then(function(teamObj){
+      res.json(teamObj);
+    })
+    .catch(error)
+  },
   create: function(req,res){
     Team.create(req.body)
-    .populate('sport')
     .then(function(newTeam){
-      Team.find({}).sort({teamName: 1})
-      .then(function(teams){
-        res.json(teams);
-      });
+      res.json(newTeam);
     })
     .catch(function(error){
       res.status(500);
@@ -82,7 +88,7 @@ const TeamsController={
     });
   },
   update: function(req,res){
-    Team.findByIdAndUpdate(req.params.id,updObj,{runValidators: true, new: true})
+    Team.findByIdAndUpdate(req.body._id, req.body, {runValidators: true, new:true})
     .then(function(dataObj){
       res.json(dataObj)
     })

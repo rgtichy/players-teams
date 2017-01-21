@@ -1,0 +1,25 @@
+<div>
+  <div class='row'>
+    <h4 class='col-md-4'>Edit or Delete Team</h4>
+  </div>
+  <p class="col-md-4 text-left">Appearance: <span class='capitalize' ng-model="team.teamName">{{team.teamName}}</span></p>
+  <hr />
+  <form>
+    <div class='form-group'>
+      <div class='row'>
+        <label class="col-md-1 text-right">Name:</label>
+        <input class='col-md-3' type='text' ng-model="editTeam.teamName" value="{{ editTeam.teamName }}"/>
+        <label class='text-right col-md-1'>Gender:</label>
+        <select class='col-md-1' ng-model="editTeam.gender">
+          <option class='capitalize' value="mens">mens</option>
+          <option class='capitalize' value="womens">womens</option>
+          <option class='capitalize' value="both">both</option>
+        </select>
+      </div>
+    </div>
+    <div class='row'>
+      <button class="btn btn-success col-md-offset-3 col-md-1" href="#!/" type='button' ng-click="update()">Update</button>
+      <a class="btn btn-danger col-md-offset-1 col-md-1" href="#!/" ng-click="delete()">Delete</a>
+    </div>
+  </form>
+</div>

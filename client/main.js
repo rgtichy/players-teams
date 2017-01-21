@@ -144,7 +144,20 @@ leagueApp.controller('TeamController', ['$route','$scope', 'MainFactory', '$rout
     })
   }
   $scope.getTeams();
-
+  $scope.getTeam = function(){
+    MainFactory.getOne('teams',$routeParams.id, function(response){
+      // To get a single user from the names array of objects in the
+      // MainFactory, I have to get the value of the index key...
+      $scope.team = angular.copy(response.data);
+      $scope.editTeam = angular.copy(response.data);
+    });
+  }
+  if ($routeParams.id !== undefined){
+    $scope.getTeam()
+  }
+  console.log($scope.teams)
+  console.log($scope.team)
+  console.log($scope.editTeam)
 }]);
 
   // SportController

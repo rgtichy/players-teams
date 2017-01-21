@@ -22,7 +22,9 @@ var teamSchema = mongoose.Schema({
                 require: true,
                 index: true,
                 unique: true },
-    location: { type: String, require: true },
+    location: { type: String },
+    gender: { type: String, require: true },
+    sport: {type:mongoose.Schema.Types.ObjectId, ref: 'Sport'},
     players: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Player' }]
 });
 
