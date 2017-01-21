@@ -1,18 +1,35 @@
 div.li {
   height: 2.5rem;
 }
+hr {
+  margin-top: .25rem;
+  margin-bottom: 1rem;
+
+}
 #ng-view {
   padding: .2rem;
   margin-top: .5rem;
   height: 50rem;
-  border-radius: .2rem;
+  border-radius: 1rem;
   overflow-x: hidden;
-  overflow-y: scroll;
+  overflow-y: hidden;
   background-color: #EEE;
+}
+.scroll-y {
+  overflow-y: scroll;
+  overflow-x: hidden; 
+}
+#ng-view hr {
+  border-color: #BBB;
 }
 .capitalize {
   text-transform: capitalize;
 }
 .form-group {
   vertical-align: bottom;
+}
+.filters {
+  background-color: #BBB;
+  height: 2.5rem;
+  border-radius: 3rem;
 }

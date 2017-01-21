@@ -19,16 +19,21 @@
         </div>
       </div>
     </form>
-    <hr />
-    <div class='row'>
-      <span class='col-md-4 text-center'><b>Team Name</b></span>
-      <span class='col-md-2 text-center'><b>Sport</b></span>
-      <span class='col-md-1 text-center'><b>Gender</b></span>
-    </div>
   </div>
-  <ul>
-    <div class="row li" ng-repeat="element in teams">
-      <li class='col-md-4 capitalize'>{{ element.teamName }}</li><span class='col-md-2 capitalize'>{{element.sport.sport}}</span><span class='col-md-1 capitalize'>{{element.gender}}</span><a class='col-md-1 btn btn-xs btn-primary' href="#!/teams/{{ element._id }}/edit">Edit</a>
-    </div>
-  </ul>
+  <hr />
+  <div class='row'>
+    <span class='col-md-4 text-center'><b>Team Name</b></span>
+    <span class='col-md-2 text-center'><b>Sport</b></span>
+    <span class='col-md-1 text-center'><b>Gender</b></span>
+  </div>
+  <div class=''>
+
+  </div>
+  <div class='scroll-y'>
+    <ul>
+      <div class="row li" ng-repeat="element in teams">
+        <li class='col-md-4 capitalize'>{{ element.teamName }}</li><span class='col-md-2 capitalize'>{{element.sport.sport}}</span><span class='col-md-1 capitalize'>{{element.gender}}</span><a class='col-md-1 btn btn-xs btn-primary' href="#!/teams/{{ element._id }}/edit">Edit</a>
+      </div>
+    </ul>
+  </div>
 </div>

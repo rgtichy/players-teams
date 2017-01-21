@@ -20,11 +20,10 @@ var teamSchema = mongoose.Schema({
                 trim: true,
                 lowercase: true,
                 require: true,
-                index: true,
-                unique: true },
+                index: true },
     location: { type: String },
     gender: { type: String, require: true },
-    sport: {type:mongoose.Schema.Types.ObjectId, ref: 'Sport'},
+    sport: {type:mongoose.Schema.Types.ObjectId, ref: 'Sport', require:true},
     players: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Player' }]
 });
 

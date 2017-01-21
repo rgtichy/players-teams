@@ -155,9 +155,6 @@ leagueApp.controller('TeamController', ['$route','$scope', 'MainFactory', '$rout
   if ($routeParams.id !== undefined){
     $scope.getTeam()
   }
-  console.log($scope.teams)
-  console.log($scope.team)
-  console.log($scope.editTeam)
 }]);
 
   // SportController
