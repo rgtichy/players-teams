@@ -10,6 +10,8 @@ var playerSchema = mongoose.Schema({
     lastName: { type: String, require: true },
     firstName: { type: String, require: true },
     birthDate: Date,
+    gender: { type: String,
+              trim: true},
     sports: [{type:mongoose.Schema.Types.ObjectId, ref: 'Sport'}],
     history: [{type:mongoose.Schema.Types.ObjectId, ref: 'Team'}],
     currentTeam: { type: mongoose.Schema.Types.ObjectId, ref: 'Team' }

@@ -33,3 +33,6 @@ hr {
   height: 2.5rem;
   border-radius: 3rem;
 }
+.btn-container{
+  padding-top: .75rem;
+}

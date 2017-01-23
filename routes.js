@@ -19,6 +19,12 @@ module.exports = function(app){
     app.put("/sports", SportsController.update);
     app.delete("/sports/:id", SportsController.delete);
 
+    app.get("/players", PlayersController.index);
+    app.post("/players", PlayersController.create);
+    app.get("/players/:id", PlayersController.show);
+    app.put("/players", PlayersController.update);
+    // app.delete("/sports/:id", SportsController.delete);
+
     app.get("/team-roster/:team_id",PlayersController.teamRoster)
     app.get("/league-teams/:league_id",TeamsController.leagueTeams)
 }

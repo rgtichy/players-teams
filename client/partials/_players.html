@@ -1,4 +1,10 @@
 <div>
+  <div class='row'>
+    <h4 class="col-md-offset-1 col-md-2">Players</h4>
+    <div class="btn-container">
+      <a href="#!/addPlayer" class="btn btn-xs col-md-1 btn-success">Add Player</a>
+    </div>
+  </div>
   <div id='add'>
     <!-- <form action='/teams' method='post'>
       <div class='row'>
@@ -27,13 +33,14 @@
     <span class='col-md-2 text-center'><b>Sports</b></span>
     <span class='col-md-1 text-center'><b>Gender</b></span>
   </div>
-  <div class=''>
-
-  </div>
   <div class='scroll-y'>
     <ul>
       <div class="row li" ng-repeat="person in players">
-        <li class='col-md-2 capitalize'>{{ person.lastName }}</li><span class='col-md-2 capitalize'>{{person.firstName}}</span><span class='col-md-2 capitalize'>{{element.sport.sport}}</span><span class='col-md-1 capitalize'>{{element.gender}}</span><a class='col-md-1 btn btn-xs btn-primary' href="#!/players/{{ element._id }}/edit">Edit</a>
+        <li class='col-md-2 capitalize'>{{ person.lastName }}</li>
+        <span class='col-md-2 capitalize'>{{person.firstName}}</span>
+        <span class='col-md-2 capitalize'>{{element.sport.sport}}</span>
+        <span class='col-md-1 capitalize'>{{element.gender}}</span>
+        <a class='col-md-1 btn btn-xs btn-primary' href="#!/players/{{ person._id }}/edit">Edit</a>
       </div>
     </ul>
   </div>

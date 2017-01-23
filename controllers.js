@@ -64,6 +64,8 @@ const PlayersController={
   },
   show: function(req,res){
     Player.findById(req.params.id)
+    .populate('sports')
+    .exec()
     .then(function(playerObj){
       res.json(playerObj);
     })
