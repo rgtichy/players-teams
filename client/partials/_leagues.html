@@ -1,16 +1,16 @@
 <div>
   <div id='add'>
-    <!-- <form action='/teams' method='post'>
+    <form action='/leagues' method='post'>
       <div class='row'>
         <div class='form-group'>
           <label class='text-right col-md-1'>Add:</label>
-          <input class='col-md-3' type='text' ng-model="newTeam.teamName"/>
+          <input class='col-md-3' type='text' ng-model="newLeague.name"/>
           <label class='text-right col-md-1'>Sport:</label>
-          <select class='col-md-1' ng-model="newTeam.sport">
+          <select class='col-md-1' ng-model="newLeague.sport">
             <option ng-repeat="sport in sports" class='capitalize' value="{{ sport._id }}">{{ sport.sport }}</option>
           </select>
           <label class='text-right col-md-1'>Gender:</label>
-          <select class='col-md-1' ng-model="newTeam.gender">
+          <select class='col-md-1' ng-model="newLeague.gender">
             <option class='capitalize' value="mens">mens</option>
             <option class='capitalize' value="womens">womens</option>
             <option class='capitalize' value="both">both</option>
@@ -18,13 +18,12 @@
           <button class='btn btn btn-success col-md-offset-1 col-md-1' ng-click="add()" type="button">Add</button>
         </div>
       </div>
-    </form> -->
+    </form>
   </div>
   <hr />
   <div class='row'>
-    <span class='col-md-2 text-center'><b>Player Last Name</b></span>
-    <span class='col-md-2 text-center'><b>First Name</b></span>
-    <span class='col-md-2 text-center'><b>Sports</b></span>
+    <span class='col-md-4 text-center'><b>League Name</b></span>
+    <span class='col-md-2 text-center'><b>Sport</b></span>
     <span class='col-md-1 text-center'><b>Gender</b></span>
   </div>
   <div class=''>
@@ -32,8 +31,8 @@
   </div>
   <div class='scroll-y'>
     <ul>
-      <div class="row li" ng-repeat="person in players">
-        <li class='col-md-2 capitalize'>{{ person.lastName }}</li><span class='col-md-2 capitalize'>{{person.firstName}}</span><span class='col-md-2 capitalize'>{{element.sport.sport}}</span><span class='col-md-1 capitalize'>{{element.gender}}</span><a class='col-md-1 btn btn-xs btn-primary' href="#!/players/{{ element._id }}/edit">Edit</a>
+      <div class="row li" ng-repeat="element in leagues">
+        <li class='col-md-4 capitalize'>{{ element.name }}</li><span class='col-md-2 capitalize'>{{element.sport.sport}}</span><span class='col-md-1 capitalize'>{{element.gender}}</span><a class='col-md-1 btn btn-xs btn-primary' href="#!/leagues/{{ element._id }}/edit">Edit</a>
       </div>
     </ul>
   </div>

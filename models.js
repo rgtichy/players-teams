@@ -22,9 +22,8 @@ var teamSchema = mongoose.Schema({
                 require: true,
                 index: true },
     location: { type: String },
-    gender: { type: String, require: true },
-    sport: {type:mongoose.Schema.Types.ObjectId, ref: 'Sport', require:true},
-    players: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Player' }]
+    league: {type:mongoose.Schema.Types.ObjectId, ref: 'League', index: true},
+    roster: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Player' }]
 });
 
 var sportSchema = mongoose.Schema({
@@ -35,13 +34,26 @@ var sportSchema = mongoose.Schema({
              index: true,
              unique: true},
 });
-
+var leagueSchema = mongoose.Schema({
+    name: { type: String,
+             trim: true,
+             lowercase: true,
+             require: true,
+             index: true,},
+    abbr: { type: String,
+            uppercase: true,
+            trim: true},
+    sport:  {type:mongoose.Schema.Types.ObjectId, ref: 'Sport', require:true},
+    gender: { type: String, require: true },
+});
 var Player = mongoose.model("Player", playerSchema);
 var Team = mongoose.model("Team", teamSchema);
 var Sport = mongoose.model("Sport", sportSchema);
+var League = mongoose.model("League", leagueSchema);
 
 module.exports = {
     Player,
     Team,
-    Sport
+    Sport,
+    League
 }

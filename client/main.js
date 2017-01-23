@@ -6,6 +6,10 @@ leagueApp.config(["$routeProvider", function($routeProvider){
       controller: "SportController",
       templateUrl: "partials/_sports.html"
   })
+  .when('/players', {
+    controller: "PlayerController",
+    templateUrl: "partials/_players.html"
+  })
   .when('/players/:id', {
     controller: "PlayerController",
     templateUrl: "partials/_showPlayer.html"
@@ -37,6 +41,18 @@ leagueApp.config(["$routeProvider", function($routeProvider){
   .when('/sports/:id/edit', {
     controller: "SportController",
     templateUrl: "partials/_editSport.html"
+  })
+  .when('/leagues', {
+    controller: "LeagueController",
+    templateUrl: "partials/_leagues.html"
+  })
+  .when('/leagues/:id', {
+    controller: "LeagueController",
+    templateUrl: "partials/_showLeague.html"
+  })
+  .when('/leagues/:id/edit', {
+    controller: "LeagueController",
+    templateUrl: "partials/_editLeague.html"
   })
   .otherwise({
     redirectTo: '/main'
@@ -89,9 +105,23 @@ leagueApp.factory("MainFactory", ['$http',function($http){
       console.log(error)
     } );
   };
-  factory.getSports = function(callback){
+  factory.find = function($$url,callback){
+    $http.get($$url)
+    .then(callback)
+    .catch(console.log);
+  };
+  factory.sportsIndex = function(callback){
     $http({
       url: "/sports",
+      method: 'GET',
+    })
+    .then( callback )
+    .catch(console.log);
+  }
+  factory.leaguesIndex = function(callback){
+    console.log("retrieving leagues array")
+    $http({
+      url: "/leagues",
       method: 'GET',
     })
     .then( callback )
@@ -109,12 +139,15 @@ leagueApp.controller('TeamController', ['$route','$scope', 'MainFactory', '$rout
   $scope.newTeam = {};
   $scope.editTeam = {};
   $scope.teams = [];
+  $scope.leagues = [];
 
-  if($scope.sports === [] || $scope.sports === undefined){
-    MainFactory.getSports(function(response){
-      $scope.sports=response.data;
-    });
-  }
+  MainFactory.sportsIndex(function(response){
+    $scope.sports=response.data;
+  });
+
+  MainFactory.leaguesIndex(function(response){
+    $scope.leagues=response.data;
+  });
 
   $scope.delete = function(){
     MainFactory.delete( 'teams', $scope.editTeam._id, function(response){
@@ -138,18 +171,19 @@ leagueApp.controller('TeamController', ['$route','$scope', 'MainFactory', '$rout
       }
     });
   }
-  $scope.getTeams = function(){
+  $scope.teamsIndex = function(){
     MainFactory.get('teams',function(response){
       $scope.teams=response.data;
     })
   }
-  $scope.getTeams();
+  $scope.teamsIndex();
   $scope.getTeam = function(){
     MainFactory.getOne('teams',$routeParams.id, function(response){
-      // To get a single user from the names array of objects in the
-      // MainFactory, I have to get the value of the index key...
       $scope.team = angular.copy(response.data);
       $scope.editTeam = angular.copy(response.data);
+    });
+    MainFactory.find(`/team-roster/${$routeParams.id}`,{team:{_id:$routeParams.id}}, function(response){
+      $scope.roster = angular.copy(response.data);
     });
   }
   if ($routeParams.id !== undefined){
@@ -167,12 +201,12 @@ leagueApp.controller('TeamController', ['$route','$scope', 'MainFactory', '$rout
     $scope.sports=[];
     $scope.editSport = {};
 
-    $scope.getSports = function(){
+    $scope.sportsIndex = function(){
       MainFactory.get('sports',function(response){
         $scope.sports=response.data;
       })
     }
-    $scope.getSports();
+    $scope.sportsIndex();
 
     $scope.add = function(){
       console.log($scope.newSport)
@@ -203,3 +237,98 @@ leagueApp.controller('TeamController', ['$route','$scope', 'MainFactory', '$rout
       $scope.getSport()
     }
   }]);
+
+// LeagueController
+
+leagueApp.controller('LeagueController', ['$route','$scope', 'MainFactory', '$routeParams', function($route,$scope, MainFactory, $routeParams){
+  console.log('LeagueController loaded');
+
+  $scope.league = {};
+  $scope.newLeague = {};
+  $scope.leagues = [];
+  $scope.editLeague = {};
+  $scope.sports = [];
+
+  console.log("getting leagues?")
+  MainFactory.leaguesIndex(function(response){
+    $scope.leagues=response.data;
+  });
+  console.log("getting sports?")
+  MainFactory.sportsIndex(function(response){
+    $scope.sports=response.data;
+  });
+  $scope.add = function(){
+    console.log($scope.newLeague)
+    MainFactory.insert('leagues',$scope.newLeague,function(response){
+      $route.reload()
+    })
+  }
+
+  $scope.delete = function(){
+    MainFactory.delete( 'leagues', $scope.editLeague._id ,console.log);
+  }
+
+  $scope.update = function(){
+    MainFactory.update('leagues',$scope.editLeague,function(response){
+      $scope.league=angular.copy(response.data)
+    })
+  }
+
+  $scope.getLeague = function(){
+    MainFactory.getOne('leagues',$routeParams.id, function(response){
+      $scope.league = angular.copy(response.data);
+      $scope.editLeague = angular.copy(response.data);
+    });
+    MainFactory.find( `/league-teams/${$routeParams.id}`, function(response){
+      $scope.leagueTeams = angular.copy(response.data)
+      console.log($scope.leagueTeams)
+    })
+  }
+  if ($routeParams.id !== undefined){
+    $scope.getLeague()
+  }
+}]);
+
+// PlayerController
+
+leagueApp.controller('PlayerController', ['$route','$scope', 'MainFactory', '$routeParams', function($route,$scope, MainFactory, $routeParams){
+  console.log('PlayerController loaded');
+
+  $scope.player = {};
+  $scope.newPlayer = {};
+  $scope.players = [];
+  $scope.editPlayer = {};
+  $scope.sports = [];
+
+  console.log("getting sports?")
+  MainFactory.sportsIndex(function(response){
+    $scope.sports=response.data;
+  });
+  $scope.add = function(){
+    console.log($scope.newPlayer)
+    MainFactory.insert('players',$scope.newPlayer,function(response){
+      $route.reload();
+    })
+  }
+
+  $scope.delete = function(){
+    MainFactory.delete( 'players', $scope.editPlayer._id ,console.log);
+  }
+
+  $scope.update = function(){
+    MainFactory.update('players',$scope.editPlayer,function(response){
+      $scope.player=angular.copy(response.data);
+      $route.reload();
+    })
+  }
+
+  $scope.getPlayer = function(){
+    MainFactory.getOne('players',$routeParams.id, function(response){
+      $scope.player = angular.copy(response.data);
+      $scope.editPlayer = angular.copy(response.data);
+    });
+  }
+  if ($routeParams.id !== undefined){
+    $scope.getPlayer()
+  }
+}]);

@@ -1,0 +1,53 @@
+<div>
+  <div class='row'>
+    <h4 class='col-md-2'>Edit:</h4>
+    <h4 class="col-md-10 text-left capitalize" ng-model="league.name"><b>{{league.name}}</b></h4>
+  </div>
+  <hr />
+  <div class='row'>
+    <div class='col-md-6'>
+      <form>
+        <div class='form-group'>
+          <div class='row'>
+            <label class="col-md-2 text-right">Name:</label>
+            <input class='col-md-9' type='text' ng-model="editLeague.name" value="{{ editLeague.name }}"/>
+          </div>
+        </div>
+        <div class='form-group'>
+          <div class='row'>
+            <label class="col-md-2 text-right">Abbr:</label>
+            <input class='col-md-2' type='text' ng-model="editLeague.abbr" value="{{ editLeague.abbr }}"/>
+            <label class='text-right col-md-2'>Sport:</label>
+            <select class='col-md-2' ng-model="editLeague.sport">
+              <option ng-repeat="sport in sports" class='capitalize' value="{{ sport._id }}">{{ sport.sport }}</option>
+            </select>
+            <label class='text-right col-md-2'>Gender:</label>
+            <select class='col-md-2' ng-model="editLeague.gender">
+              <option class='capitalize' value="mens">mens</option>
+              <option class='capitalize' value="womens">womens</option>
+              <option class='capitalize' value="both">both</option>
+            </select>
+          </div>
+        </div>
+        <div class='form-group'>
+          <a class="btn btn-primary col-md-offset-2 col-md-2" href="#!/leagues" >Cancel</a>
+          <a class="btn btn-success col-md-offset-1 col-md-2" href="#!/leagues" ng-click="update()">Update</a>
+          <a class="btn btn-danger col-md-offset-1 col-md-2" href="#!/leagues"  ng-click="delete()">Delete</a>
+        </div>
+      </form>
+    </div>
+    <div class='col-md-6' id='teams'>
+      <div class='row'>
+        <span class='col-md-8 text-left form-group'><b>Teams</b></span>
+      </div>
+      <hr />
+      <div class='scroll-y'>
+        <ul>
+          <div class="row li" ng-repeat="row in leagueTeams">
+            <li class='col-md-8 capitalize'>{{ row.teamName }}</li><a href="#!/teams/{{row._id}}/edit">Edit Team</a>
+          </div>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,14 +1,24 @@
-var { PlayersController, TeamsController, SportsController  } = require('./controllers');
+var { PlayersController, TeamsController, SportsController, LeaguesController  } = require('./controllers');
 
 module.exports = function(app){
     app.get("/teams", TeamsController.index);
     app.post("/teams", TeamsController.create);
     app.get("/teams/:id", TeamsController.show);
     app.put("/teams", TeamsController.update);
+    app.delete("/teams/:id", TeamsController.delete);
+
+    app.get("/leagues", LeaguesController.index);
+    app.post("/leagues", LeaguesController.create);
+    app.get("/leagues/:id", LeaguesController.show);
+    app.put("/leagues", LeaguesController.update);
+    app.delete("/leagues/:id", LeaguesController.delete);
 
     app.get("/sports", SportsController.index);
-    app.put("/sports", SportsController.update);
     app.post("/sports", SportsController.create);
-    app.delete("/sports/:id", SportsController.delete);
     app.get("/sports/:id", SportsController.show);
+    app.put("/sports", SportsController.update);
+    app.delete("/sports/:id", SportsController.delete);
+
+    app.get("/team-roster/:team_id",PlayersController.teamRoster)
+    app.get("/league-teams/:league_id",TeamsController.leagueTeams)
 }

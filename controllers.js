@@ -1,4 +1,4 @@
-const { Player, Team, Sport } = require('./models');
+const { Player, Team, Sport, League } = require('./models');
 
 function error(error){
   res.status(500);
@@ -55,13 +55,57 @@ const SportsController={
   }
 }
 const PlayersController={
-
+  index: function(req,res){
+    Player.find({}).sort({lastName: 1})
+    .then(function(players){
+        res.json(players);
+    })
+    .catch(error);
+  },
+  show: function(req,res){
+    Player.findById(req.params.id)
+    .then(function(playerObj){
+      res.json(playerObj);
+    })
+    .catch(error)
+  },
+  create: function(req,res){
+    Player.create(req.body)
+    .then(function(newPlayer){
+      res.json(newPlayer);
+    })
+    .catch(error)
+  },
+  update: function(req,res){
+    Player.findByIdAndUpdate(req.body._id, req.body, {runValidators: true, new:true})
+    .then(function(dataObj){
+      res.json(dataObj)
+    })
+    .catch(error)
+  },
+  delete: function(req,res){
+    Player.findByIdAndRemove(req.params.id)
+    .then(function(playerObj){
+      res.json({success:true})
+    })
+    .catch(error)
+  },
+  teamRoster: function(req,res){
+    Player.find(req.body)
+    .populate('sport')
+    .exec()
+    .then(function(rosterObj){
+      res.json(rosterObj)
+    })
+    .catch(error)
+  }
 }
 const TeamsController={
   index: function(req,res){
     Team.find({}).sort({teamName: 1})
+    .populate('roster')
+    .populate('league')
     .populate('sport')
-    .populate('players')
     .exec()
     .then(function(teams){
         res.json(teams);
@@ -94,6 +138,67 @@ const TeamsController={
     })
     .catch(TeamsController.error)
   },
+  delete: function(req,res){
+    Team.findByIdAndRemove(req.params.id)
+    .then(function(teamObj){
+      res.json({success:true})
+    })
+    .catch(error)
+  },
+  leagueTeams: function(req,res){
+    Team.find({league: {_id: req.params.league_id}})
+    .exec()
+    .then(function(teams){
+      console.log(teams)
+        res.json(teams);
+    })
+    .catch(error);
+  },
+}
+const LeaguesController={
+  index: function(req,res){
+    League.find({}).sort({name: 1})
+    .populate('sport')
+    .exec()
+    .then(function(leagues){
+        res.json(leagues);
+    })
+    .catch(function(err){
+        res.status(500).json(err);
+    });
+  },
+  show: function(req,res){
+    League.findById(req.params.id)
+    .then(function(leagueObj){
+      res.json(leagueObj);
+    })
+    .catch(error)
+  },
+  create: function(req,res){
+    console.log('X: Got Here',req.body)
+    League.create(req.body)
+    .then(function(newLeague){
+      res.json(newLeague);
+    })
+    .catch(function(error){
+      res.status(500);
+      res.json(error);
+    });
+  },
+  update: function(req,res){
+    League.findByIdAndUpdate(req.body._id, req.body, {runValidators: true, new:true})
+    .then(function(dataObj){
+      res.json(dataObj)
+    })
+    .catch(LeaguesController.error)
+  },
+  delete: function(req,res){
+    League.findByIdAndRemove(req.params.id)
+    .then(function(resObj){
+      res.json({success:true})
+    })
+    .catch(error)
+  },
   error: function(error){
     res.status(500);
     res.json(error);
@@ -102,5 +207,6 @@ const TeamsController={
 module.exports = {
     PlayersController,
     TeamsController,
-    SportsController
+    SportsController,
+    LeaguesController
 }
