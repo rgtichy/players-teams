@@ -58,7 +58,6 @@ leagueApp.factory("MainFactory", ['$http',function($http){
     .catch(console.log);
   }
   factory.leaguesIndex = function(callback){
-    console.log("retrieving leagues array")
     $http({
       url: "/leagues",
       method: 'GET',

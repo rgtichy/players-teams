@@ -1,5 +1,9 @@
-div.li {
+div.li, .players {
   height: 2.5rem;
+}
+#filter {
+  padding-top: .5rem;
+  padding-bottom: .5rem;
 }
 hr {
   margin-top: .25rem;
@@ -35,4 +39,14 @@ hr {
 }
 .btn-container{
   padding-top: .75rem;
+}
+#fifty-fifty{
+  height: 15rem;
+}
+#players {
+  height: 30rem;
+}
+#list {
+  height: 24rem;
+  margin: 1rem;
 }

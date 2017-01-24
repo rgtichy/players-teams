@@ -23,8 +23,10 @@ module.exports = function(app){
     app.post("/players", PlayersController.create);
     app.get("/players/:id", PlayersController.show);
     app.put("/players", PlayersController.update);
-    // app.delete("/sports/:id", SportsController.delete);
 
-    app.get("/team-roster/:team_id",PlayersController.teamRoster)
-    app.get("/league-teams/:league_id",TeamsController.leagueTeams)
+// special functions
+    app.get("/team-roster/:team_id",PlayersController.teamRoster);
+    app.get("/available",PlayersController.available);
+    app.get("/league-teams/:league_id",TeamsController.leagueTeams);
+    app.post("/stints",PlayersController.rosterAdd);
 }

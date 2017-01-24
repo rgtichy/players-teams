@@ -1,10 +1,5 @@
 const { Player, Team, Sport, League } = require('./models');
 
-function error(error){
-  res.status(500);
-  res.json(error);
-}
-
 const SportsController={
   index: function(req,res){
     Sport.find({}).sort({sport: 1})
@@ -12,7 +7,8 @@ const SportsController={
         res.json(sports);
       })
       .catch(function(err){
-        res.status(500).json(err);
+        res.status(500);
+        res.json(err);
     });
   },
   create: function(req,res){
@@ -33,21 +29,30 @@ const SportsController={
     .then(function(sportObj){
       res.json(sportObj);
     })
-    .catch(error)
+    .catch(function(err){
+      res.status(500);
+      res.json(err);
+    });
   },
   update: function(req,res){
     Sport.findByIdAndUpdate(req.body._id, req.body, {runValidators: true, new:true})
     .then(function(sportObj){
       res.json(sportObj)
     })
-    .catch(error)
+    .catch(function(err){
+      res.status(500);
+      res.json(err);
+    });
   },
   delete: function(req,res){
     Sport.findByIdAndRemove(req.params.id)
     .then(function(sportObj){
       res.json({success:true})
     })
-    .catch(error)
+    .catch(function(err){
+      res.status(500);
+      res.json(err);
+    });
   },
   error: function(error){
     res.status(500);
@@ -62,7 +67,10 @@ const PlayersController={
     .then(function(players){
         res.json(players);
     })
-    .catch(error);
+    .catch(function(err){
+      res.status(500);
+      res.json(err);
+    });
   },
   show: function(req,res){
     Player.findById(req.params.id)
@@ -71,14 +79,20 @@ const PlayersController={
     .then(function(playerObj){
       res.json(playerObj);
     })
-    .catch(error)
+    .catch(function(err){
+      res.status(500);
+      res.json(err);
+    });
   },
   create: function(req,res){
     Player.create(req.body)
     .then(function(newPlayer){
       res.json(newPlayer);
     })
-    .catch(error)
+    .catch(function(err){
+      res.status(500);
+      res.json(err);
+    });
   },
   update: function(req,res){
     Player.findByIdAndUpdate(req.body._id, req.body, {runValidators: true, new:true})
@@ -86,7 +100,8 @@ const PlayersController={
       res.json(dataObj)
     })
     .catch(function(err){
-      console.log(err)
+      res.status(500);
+      res.json(err);
     });
   },
   delete: function(req,res){
@@ -94,7 +109,10 @@ const PlayersController={
     .then(function(playerObj){
       res.json({success:true})
     })
-    .catch(error)
+    .catch(function(err){
+      res.status(500);
+      res.json(err);
+    });
   },
   teamRoster: function(req,res){
     Player.find(req.body)
@@ -103,8 +121,24 @@ const PlayersController={
     .then(function(rosterObj){
       res.json(rosterObj)
     })
-    .catch(error)
-  }
+    .catch(function(err){
+      res.status(500);
+      res.json(err);
+    });
+  },
+  available: function(req,res){
+    Player.find({$or: [{ currentTeam : { $exists : false }}] })
+    .then(function(available){
+      res.json(available)
+    })
+    .catch(function(err){
+      res.status(500);
+      res.json(err);
+    })
+  },
+  rosterAdd: function(req,res){
+    console.log ("add player to team")
+  },
 }
 const TeamsController={
   index: function(req,res){
@@ -117,7 +151,8 @@ const TeamsController={
         res.json(teams);
     })
     .catch(function(err){
-        res.status(500).json(err);
+      res.status(500);
+      res.json(err);
     });
   },
   show: function(req,res){
@@ -125,7 +160,10 @@ const TeamsController={
     .then(function(teamObj){
       res.json(teamObj);
     })
-    .catch(error)
+    .catch(function(err){
+      res.status(500);
+      res.json(err);
+    });
   },
   create: function(req,res){
     Team.create(req.body)
@@ -142,14 +180,20 @@ const TeamsController={
     .then(function(dataObj){
       res.json(dataObj)
     })
-    .catch(TeamsController.error)
+    .catch(function(err){
+      res.status(500);
+      res.json(err);
+    });
   },
   delete: function(req,res){
     Team.findByIdAndRemove(req.params.id)
     .then(function(teamObj){
       res.json({success:true})
     })
-    .catch(error)
+    .catch(function(err){
+      res.status(500);
+      res.json(err);
+    });
   },
   leagueTeams: function(req,res){
     Team.find({league: {_id: req.params.league_id}})
@@ -158,7 +202,10 @@ const TeamsController={
     .then(function(teams){
         res.json(teams);
     })
-    .catch(error);
+    .catch(function(err){
+      res.status(500);
+      res.json(err);
+    });
   },
 }
 const LeaguesController={
@@ -170,7 +217,8 @@ const LeaguesController={
         res.json(leagues);
     })
     .catch(function(err){
-        res.status(500).json(err);
+      res.status(500);
+      res.json(err);
     });
   },
   show: function(req,res){
@@ -178,7 +226,10 @@ const LeaguesController={
     .then(function(leagueObj){
       res.json(leagueObj);
     })
-    .catch(error)
+    .catch(function(err){
+      res.status(500);
+      res.json(err);
+    });
   },
   create: function(req,res){
     League.create(req.body)
@@ -195,19 +246,21 @@ const LeaguesController={
     .then(function(dataObj){
       res.json(dataObj)
     })
-    .catch(LeaguesController.error)
+    .catch(function(err){
+      res.status(500);
+      res.json(err);
+    });
   },
   delete: function(req,res){
     League.findByIdAndRemove(req.params.id)
     .then(function(resObj){
       res.json({success:true})
     })
-    .catch(error)
+    .catch(function(err){
+      res.status(500);
+      res.json(err);
+    });
   },
-  error: function(error){
-    res.status(500);
-    res.json(error);
-  }
 }
 module.exports = {
     PlayersController,

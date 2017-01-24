@@ -4,27 +4,53 @@
     <p class="col-md-4 text-left">Appearance: <span class='capitalize' ng-model="team.teamName">{{team.teamName}}</span></p>
   </div>
   <hr />
-  <form>
-    <div class='form-group'>
-      <div class='row'>
-        <label class="col-md-1 text-right">Name:</label>
-        <input class='col-md-3' type='text' ng-model="editTeam.teamName" value="{{ editTeam.teamName }}"/>
-        <label class='text-right col-md-1'>League:</label>
-        <select class='col-md-1' ng-model="editTeam.league">
-          <option ng-repeat="league in leagues" class='capitalize' value="{{ league._id }}">{{ league.abbr }}, {{ league.name }}</option>
-        </select>
+  <div class='row' id="fifty-fifty">
+    <div class='col-md-6'>
+      <form>
+        <div class='form-group'>
+          <div class='row'>
+            <label class="col-md-2 text-right">Name:</label>
+            <input class='col-md-6' type='text' ng-model="editTeam.teamName" value="{{ editTeam.teamName }}"/>
+            <label class='text-right col-md-2'>League:</label>
+            <select class='col-md-2' ng-model="editTeam.league">
+              <option ng-repeat="league in leagues" class='capitalize' value="{{ league._id }}">{{ league.abbr }}, {{ league.name }}</option>
+            </select>
+          </div>
+        </div>
+        <div class='form-group'>
+          <div class='row'>
+            <label class="col-md-2 text-right">Location:</label>
+            <input class='col-md-6' type='text' ng-model="editTeam.location" value="{{ editTeam.location }}"/>
+          </div>
+        </div>
+        <div class='row'>
+          <a class="col-md-offset-4 btn btn-primary col-md-2" href="#!/teams">Cancel</a>
+          <a class="btn btn-success col-md-offset-1 col-md-2" href="#!/teams" type='button' ng-click="update()">Update</a>
+          <a class="btn btn-danger col-md-offset-1 col-md-2" href="#!/teams" ng-click="delete()">Delete</a>
+        </div>
+      </form>
+    </div>
+    <div class='col-md-6' id="roster">
+      <p class="col-md-offset-1 col-md-10 text-center"><b>Players</b></p>
+      <p ng-repeat="player in roster">{{ player.lastName }}, {{ player.firstName }}<span class='btn btn-xs btn-danger col-md-2'>Drop</span></p>
+    </div>
+  </div>
+  <div id='players'>
+    <div id='filter' class='row'>
+      <div class='form-group'>
+        <span><label class='col-md-1 text-right'>Filters:</label><label class='col-md-1 text-right'>Sport:</label>
+          <select class='col-md-1' ng-model="filter.sport">
+            <option ng-repeat="sport in sports" class='capitalize' value="{{ sport._id }}">{{ sport.sport }}</option>
+          </select>
+          <label class='col-md-2 text-right'>Name:</label>
+          <input class='col-md-2' type="text" ng-model="filter.lastName"/>
+        </span>
       </div>
     </div>
-    <div class='form-group'>
-      <div class='row'>
-        <label class="col-md-1 text-right">Location:</label>
-        <input class='col-md-3' type='text' ng-model="editTeam.location" value="{{ editTeam.location }}"/>
+    <div id='list' class='scroll-y'>
+      <div ng-repeat="player in available | orderBy: player.lastName | filter: filter.lastName" class='row players'>
+        <span class='col-md-3'>{{ player.lastName }}, {{ player.firstName }}</span><a href='/roster/{{player._id}}/{{editTeam._id}}' class='btn btn-xs btn-primary col-md-1'>Add</a>
       </div>
     </div>
-    <div class='row'>
-      <a class="col-md-offset-1 btn btn-primary col-md-1" href="#!/teams">Cancel</a>
-      <a class="btn btn-success col-md-offset-1 col-md-1" href="#!/teams" type='button' ng-click="update()">Update</a>
-      <a class="btn btn-danger col-md-offset-1 col-md-1" href="#!/teams" ng-click="delete()">Delete</a>
-    </div>
-  </form>
+  </div>
 </div>

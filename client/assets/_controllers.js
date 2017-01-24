@@ -54,9 +54,20 @@ leagueApp.controller('TeamController', ['$route','$scope', 'MainFactory', '$rout
     MainFactory.find(`/team-roster/${$routeParams.id}`,{team:{_id:$routeParams.id}}, function(response){
       $scope.roster = angular.copy(response.data);
     });
+    MainFactory.get('/available',function(response){
+      $scope.available = angular.copy(response.data)
+    });
   }
   if ($routeParams.id !== undefined){
     $scope.getTeam()
+  }
+  $scope.addStint = function(playerId){
+    MainFactory.insert('stints',{team: team,playerId: playerId}, function(response){
+      var playerObj = angular.copy(response.data);
+      $scope.roster.push(playerObj);
+      var idx = $scope.available.indexOf(playerObj);
+      $scope.available.slice(idx,1);
+    })
   }
 }]);
 
