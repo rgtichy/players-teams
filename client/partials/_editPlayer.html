@@ -21,6 +21,7 @@
         <div class='form-group'>
           <div class='row'>
             <label class='col-md-offset-1 col-md-2'>Birthdate:</label>
+            <!-- <input class="col-md-4" type='date' ng-model="editPlayer.birthDate | date:'yyyy-MM-dd'"/> -->
             <input class="col-md-4" type='date' ng-model="editPlayer.birthDate"/>
             <label class='col-md-offset-1 col-md-2'>Gender:</label>
             <select class='col-md-2' ng-model="editPlayer.gender">
@@ -33,7 +34,8 @@
         <div class='form-group'>
           <div class='row'>
             <label class='col-md-offset-1 col-md-2'>Sports:</label>
-            <select multiple class='col-md-2' ng-model="newPlayer.sports" ng-options="sport.sport for sport in sports">
+            <select multiple class='col-md-2' ng-model="editPlayer.sports">
+              <option ng-repeat="sport in sports" value="{{sport._id}}" >{{sport.sport}}</option>
             </select>
           </div>
         </div>

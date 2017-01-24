@@ -15,7 +15,6 @@ leagueApp.factory("MainFactory", ['$http',function($http){
     } );
   };
   factory.getOne = function($$url,id,callback){
-    console.log(`/${$$url}/${id}`)
     $http({
       url: `/${$$url}/${id}`,
       method: 'GET',

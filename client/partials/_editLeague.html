@@ -44,7 +44,7 @@
       <div class='scroll-y'>
         <ul>
           <div class="row li" ng-repeat="row in leagueTeams">
-            <li class='col-md-8 capitalize'>{{ row.teamName }}</li><a href="#!/teams/{{row._id}}/edit">Edit Team</a>
+            <li class='col-md-8 capitalize'>{{ row.location }} {{ row.teamName }}</li><a class='btn btn-primary btn-xs' href="#!/teams/{{row._id}}/edit">Edit Team</a>
           </div>
         </ul>
       </div>

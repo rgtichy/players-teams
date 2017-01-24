@@ -160,7 +160,7 @@ leagueApp.controller('LeagueController', ['$route','$scope', 'MainFactory', '$ro
 
 // PlayerController
 
-leagueApp.controller('PlayerController', ['$route','$scope', 'MainFactory', '$routeParams', function($route,$scope, MainFactory, $routeParams){
+leagueApp.controller('PlayerController', ['$location','$route','$scope', 'MainFactory', '$routeParams', function($location,$route,$scope, MainFactory, $routeParams){
   console.log('PlayerController loaded');
 
   $scope.player = {};
@@ -172,6 +172,20 @@ leagueApp.controller('PlayerController', ['$route','$scope', 'MainFactory', '$ro
   MainFactory.sportsIndex(function(response){
     $scope.sports=response.data;
   });
+
+  $scope.getPlayer = function(){
+    MainFactory.getOne('players',$routeParams.id, function(response){
+      $scope.player = angular.copy(response.data);
+      $scope.editPlayer = angular.copy(response.data);
+      $scope.editPlayer.birthDate = new Date ($scope.editPlayer.birthDate);
+      console.log("got it:",$scope.editPlayer)
+    });
+  }
+  if ($routeParams.id !== undefined){
+    console.log("getting one player", $routeParams.id)
+    $scope.getPlayer();
+    console.log("got one player", $scope.editPlayer)
+  }
   $scope.add = function(){
     console.log($scope.newPlayer)
     MainFactory.insert('players',$scope.newPlayer,function(response){
@@ -193,18 +207,7 @@ leagueApp.controller('PlayerController', ['$route','$scope', 'MainFactory', '$ro
   $scope.update = function(){
     MainFactory.update('players',$scope.editPlayer,function(response){
       $scope.player=angular.copy(response.data);
-      $route.reload();
+      $location.path('#!/players')
     })
-  }
-
-  $scope.getPlayer = function(){
-    MainFactory.getOne('players',$routeParams.id, function(response){
-      $scope.player = angular.copy(response.data);
-      $scope.editPlayer = angular.copy(response.data);
-      console.log(editPlayer)
-    });
-  }
-  if ($routeParams.id !== undefined){
-    $scope.getPlayer()
   }
 }]);

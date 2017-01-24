@@ -57,6 +57,8 @@ const SportsController={
 const PlayersController={
   index: function(req,res){
     Player.find({}).sort({lastName: 1})
+    .populate('sports')
+    .exec()
     .then(function(players){
         res.json(players);
     })
@@ -83,7 +85,9 @@ const PlayersController={
     .then(function(dataObj){
       res.json(dataObj)
     })
-    .catch(error)
+    .catch(function(err){
+      console.log(err)
+    });
   },
   delete: function(req,res){
     Player.findByIdAndRemove(req.params.id)
@@ -149,9 +153,9 @@ const TeamsController={
   },
   leagueTeams: function(req,res){
     Team.find({league: {_id: req.params.league_id}})
+    .populate('team')
     .exec()
     .then(function(teams){
-      console.log(teams)
         res.json(teams);
     })
     .catch(error);
@@ -177,7 +181,6 @@ const LeaguesController={
     .catch(error)
   },
   create: function(req,res){
-    console.log('X: Got Here',req.body)
     League.create(req.body)
     .then(function(newLeague){
       res.json(newLeague);

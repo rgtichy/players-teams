@@ -31,15 +31,13 @@
     <span class='col-md-2 text-center'><b>Player Last Name</b></span>
     <span class='col-md-2 text-center'><b>First Name</b></span>
     <span class='col-md-2 text-center'><b>Sports</b></span>
-    <span class='col-md-1 text-center'><b>Gender</b></span>
   </div>
   <div class='scroll-y'>
     <ul>
       <div class="row li" ng-repeat="person in players">
         <li class='col-md-2 capitalize'>{{ person.lastName }}</li>
         <span class='col-md-2 capitalize'>{{person.firstName}}</span>
-        <span class='col-md-2 capitalize'>{{element.sport.sport}}</span>
-        <span class='col-md-1 capitalize'>{{element.gender}}</span>
+        <span class='col-md-2 capitalize'>{{person.sports[0].sport}}, {{person.sports[1].sport}},</span>
         <a class='col-md-1 btn btn-xs btn-primary' href="#!/players/{{ person._id }}/edit">Edit</a>
       </div>
     </ul>

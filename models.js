@@ -14,7 +14,7 @@ var playerSchema = mongoose.Schema({
               trim: true},
     sports: [{type:mongoose.Schema.Types.ObjectId, ref: 'Sport'}],
     history: [{type:mongoose.Schema.Types.ObjectId, ref: 'Team'}],
-    currentTeam: { type: mongoose.Schema.Types.ObjectId, ref: 'Team' }
+    currentTeam: { type: mongoose.Schema.Types.ObjectId, ref: 'Team', index:true }
 });
 
 var teamSchema = mongoose.Schema({
