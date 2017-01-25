@@ -2,8 +2,10 @@ div.li, .players {
   height: 2.5rem;
 }
 #filter {
+  background-color: #DDD;
   padding-top: .5rem;
   padding-bottom: .5rem;
+  border: 1px solid #CCC;
 }
 hr {
   margin-top: .25rem;
@@ -13,7 +15,7 @@ hr {
 #ng-view {
   padding: .2rem;
   margin-top: .5rem;
-  height: 50rem;
+  height: 60rem;
   border-radius: 1rem;
   overflow-x: hidden;
   overflow-y: hidden;
@@ -32,21 +34,21 @@ hr {
 .form-group {
   vertical-align: bottom;
 }
-.filters {
+/*.filters {
   background-color: #BBB;
   height: 2.5rem;
   border-radius: 3rem;
-}
+}*/
 .btn-container{
   padding-top: .75rem;
 }
 #fifty-fifty{
-  height: 15rem;
+  height: 24rem;
 }
 #players {
-  height: 30rem;
+  height: 31rem;
 }
 #list {
-  height: 24rem;
+  height: 25rem;
   margin: 1rem;
 }

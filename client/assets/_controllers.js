@@ -62,12 +62,13 @@ leagueApp.controller('TeamController', ['$route','$scope', 'MainFactory', '$rout
     $scope.getTeam()
   }
   $scope.addStint = function(playerId){
-    MainFactory.insert('stints',{team: team,playerId: playerId}, function(response){
-      var playerObj = angular.copy(response.data);
-      $scope.roster.push(playerObj);
-      var idx = $scope.available.indexOf(playerObj);
-      $scope.available.slice(idx,1);
-    })
+    console.log(playerId)
+    // MainFactory.insert('stints',{team: team._id , player: playerId}, function(response){
+    //   var playerObj = angular.copy(response.data);
+    //   $scope.roster.push(playerObj);
+    //   var idx = $scope.available.indexOf(playerObj);
+    //   $scope.available.slice(idx,1);
+    // })
   }
 }]);
 
