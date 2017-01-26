@@ -16,10 +16,6 @@ var playerSchema = mongoose.Schema({
     history: [{type:mongoose.Schema.Types.ObjectId, ref: 'Team'}],
     currentTeam: { type: mongoose.Schema.Types.ObjectId, ref: 'Team', index:true },
 });
-    playerSchema.virtual('sportsList')
-    .get(function(){
-      return sports.join(", ")
-    });
 
 var teamSchema = mongoose.Schema({
     teamName: { type: String,

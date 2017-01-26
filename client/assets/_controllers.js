@@ -61,8 +61,8 @@ leagueApp.controller('TeamController', ['$route','$scope', 'MainFactory', '$rout
   if ($routeParams.id !== undefined){
     $scope.getTeam()
   }
-  $scope.addStint = function(playerId){
-    console.log(playerId)
+  $scope.addStint = function(_id){
+    console.log($scope.available, _id)
     // MainFactory.insert('stints',{team: team._id , player: playerId}, function(response){
     //   var playerObj = angular.copy(response.data);
     //   $scope.roster.push(playerObj);

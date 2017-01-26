@@ -26,7 +26,7 @@ module.exports = function(app){
 
 // special functions
     app.get("/team-roster/:team_id",PlayersController.teamRoster);
+    app.post("/team-roster/:team_id",PlayersController.rosterAdd);
     app.get("/available",PlayersController.available);
     app.get("/league-teams/:league_id",TeamsController.leagueTeams);
-    app.post("/stints",PlayersController.rosterAdd);
 }

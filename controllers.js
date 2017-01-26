@@ -137,6 +137,9 @@ const PlayersController={
     })
   },
   rosterAdd: function(req,res){
+    // 1st remove player from any other teamName
+    // 1.5th write a change record with timestamps for player history
+    // 2nd add player onto the current team
     console.log ("add player to team")
   },
 }

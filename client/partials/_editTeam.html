@@ -49,8 +49,8 @@
       </div>
     </div>
     <div id='list' class='scroll-y'>
-      <div ng-repeat="player in available | orderBy: player.lastName | filter: { lastName : filter.lastName }" class='row players'>
-        <span class='col-md-3'>{{ player.lastName }}, {{ player.firstName }}</span><span class='col-md-1'>{{player.gender}}</span><span class='col-md-3'>{{player.sportsList}}</span><a ng-click="addStint({{player._id}})" class='btn btn-xs btn-primary col-md-1'>Add</a>
+      <div ng-repeat="player in available | orderBy: 'lastName' | filter: { sports : filter.Sport } | filter: { lastName : filter.lastName } track by player._id" class='row players'>
+        <span class='col-md-3'>{{ player.lastName }}, {{ player.firstName }}</span><span class='col-md-1'>{{player.gender}}</span><span class='col-md-3'>{{player.sportsList}}</span><a ng-click="addStint(player._id)" class='btn btn-xs btn-primary col-md-1'>Add</a>
       </div>
     </div>
   </div>
