@@ -73,6 +73,7 @@ const PlayersController={
     });
   },
   show: function(req,res){
+    console.log(req.params.id)
     Player.findById(req.params.id)
     .populate('sports')
     .exec()
@@ -128,6 +129,8 @@ const PlayersController={
   },
   available: function(req,res){
     Player.find({$or: [{ currentTeam : { $exists : false }}] })
+    .populate('sports')
+    .exec()
     .then(function(available){
       res.json(available)
     })

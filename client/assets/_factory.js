@@ -49,21 +49,40 @@ leagueApp.factory("MainFactory", ['$http',function($http){
     .then(callback)
     .catch(console.log);
   };
-  factory.sportsIndex = function(callback){
+  factory.sports=[];
+  factory.sportsIndex = function(){
     $http({
       url: "/sports",
       method: 'GET',
     })
-    .then( callback )
+    .then(function(response){
+      Object.assign(factory.sports,response.data)
+    })
     .catch(console.log);
   }
-  factory.leaguesIndex = function(callback){
+  factory.leagues=[];
+  factory.leaguesIndex = function(){
     $http({
       url: "/leagues",
       method: 'GET',
     })
-    .then( callback )
+    .then(function(response){
+      Object.assign(factory.leagues,response.data)
+    })
     .catch(console.log);
   }
+  factory.player = {};
+  factory.getPlayer = function(player_id){
+    $http({
+      url: `/players/${player_id}`,
+      method: 'GET',
+    })
+    .then(function(response){
+      Object.assign(factory.player,response.data);
+      factory.player.birthDate = new Date (factory.player.birthDate);
+    })
+    .catch(console.log);
+  };
+
   return factory;
 }]);

@@ -41,16 +41,17 @@
         <span><label class='col-md-1 text-right'>Filters:</label><label class='col-md-1 text-right'>Sport:</label>
           <select class='col-md-1' ng-model="filter.sport">
             <option value="">No Filter</option>
-            <option ng-repeat="sport in sports" class='capitalize' value="{{ sport._id }}">{{ sport.sport }}</option>
+            <option ng-repeat="sport in sports" class='capitalize' value="{{ sport.sport }}">{{ sport.sport }}</option>
           </select>
           <label class='col-md-2 text-right'>Last Name:</label>
           <input class='col-md-2' type="text" ng-model="filter.lastName"/>
         </span>
       </div>
     </div>
+    <!---->
     <div id='list' class='scroll-y'>
-      <div ng-repeat="player in available | orderBy: 'lastName' | filter: { sports : filter.Sport } | filter: { lastName : filter.lastName } track by player._id" class='row players'>
-        <span class='col-md-3'>{{ player.lastName }}, {{ player.firstName }}</span><span class='col-md-1'>{{player.gender}}</span><span class='col-md-3'>{{player.sportsList}}</span><a ng-click="addStint(player._id)" class='btn btn-xs btn-primary col-md-1'>Add</a>
+      <div ng-repeat="player in available | orderBy: 'lastName' | filter: { sportsList : filter.sport } | filter: { lastName : filter.lastName } track by player._id" class='row players'>
+        <span class='col-md-3'>{{ player.lastName }}, {{ player.firstName }}</span><span class='col-md-1'>{{player.gender}}</span><span class='col-md-3'>{{player.sportsList}}</span><button ng-click="addStint(player._id)" class='btn btn-xs btn-primary col-md-1'>Add</button>
       </div>
     </div>
   </div>

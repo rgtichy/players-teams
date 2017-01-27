@@ -10,13 +10,11 @@ leagueApp.controller('TeamController', ['$route','$scope', 'MainFactory', '$rout
   $scope.teams = [];
   $scope.leagues = [];
 
-  MainFactory.sportsIndex(function(response){
-    $scope.sports=response.data;
-  });
+  $scope.sports=MainFactory.sports;
+  MainFactory.sportsIndex();
 
-  MainFactory.leaguesIndex(function(response){
-    $scope.leagues=response.data;
-  });
+  $scope.leagues=MainFactory.leagues;
+  MainFactory.leaguesIndex();
 
   $scope.delete = function(){
     MainFactory.delete( 'teams', $scope.editTeam._id, function(response){
@@ -55,14 +53,23 @@ leagueApp.controller('TeamController', ['$route','$scope', 'MainFactory', '$rout
       $scope.roster = angular.copy(response.data);
     });
     MainFactory.get('/available',function(response){
-      $scope.available = angular.copy(response.data)
+      $scope.available = angular.copy(response.data);
+      for (each in $scope.available){
+        $scope.available[each].sportsList = function(){
+          var list=[];
+          for (one in $scope.available[each].sports){
+            list.push($scope.available[each].sports[one].sport)
+          }
+          return list.join(", ")
+        }()
+      }
     });
   }
   if ($routeParams.id !== undefined){
     $scope.getTeam()
   }
   $scope.addStint = function(_id){
-    console.log($scope.available, _id)
+    console.log($scope.available,"player" ,_id, "team",$routeParams.id)
     // MainFactory.insert('stints',{team: team._id , player: playerId}, function(response){
     //   var playerObj = angular.copy(response.data);
     //   $scope.roster.push(playerObj);
@@ -82,12 +89,8 @@ leagueApp.controller('TeamController', ['$route','$scope', 'MainFactory', '$rout
     $scope.sports=[];
     $scope.editSport = {};
 
-    $scope.sportsIndex = function(){
-      MainFactory.get('sports',function(response){
-        $scope.sports=response.data;
-      })
-    }
-    $scope.sportsIndex();
+    $scope.sports=MainFactory.sports;
+    MainFactory.sportsIndex();
 
     $scope.add = function(){
       console.log($scope.newSport)
@@ -130,14 +133,15 @@ leagueApp.controller('LeagueController', ['$route','$scope', 'MainFactory', '$ro
   $scope.editLeague = {};
   $scope.sports = [];
 
-  console.log("getting leagues?")
-  MainFactory.leaguesIndex(function(response){
-    $scope.leagues=response.data;
-  });
-  console.log("getting sports?")
-  MainFactory.sportsIndex(function(response){
-    $scope.sports=response.data;
-  });
+  console.log("getting leagues.")
+  $scope.leagues = MainFactory.leagues;
+  MainFactory.leaguesIndex();
+
+  console.log("getting sports.")
+  $scope.sports=MainFactory.sports;
+  MainFactory.sportsIndex();
+  console.log($scope.sports);
+
   $scope.add = function(){
     console.log($scope.newLeague)
     MainFactory.insert('leagues',$scope.newLeague,function(response){
@@ -181,23 +185,15 @@ leagueApp.controller('PlayerController', ['$location','$route','$scope', 'MainFa
   $scope.editPlayer = {};
 
   $scope.sports = [];
-  MainFactory.sportsIndex(function(response){
-    $scope.sports=response.data;
-  });
+  $scope.sports=MainFactory.sports;
+  MainFactory.sportsIndex();
 
-  $scope.getPlayer = function(){
-    MainFactory.getOne('players',$routeParams.id, function(response){
-      $scope.player = angular.copy(response.data);
-      $scope.editPlayer = angular.copy(response.data);
-      $scope.editPlayer.birthDate = new Date ($scope.editPlayer.birthDate);
-      console.log("got it:",$scope.editPlayer)
-    });
-  }
   if ($routeParams.id !== undefined){
-    console.log("getting one player", $routeParams.id)
-    $scope.getPlayer();
-    console.log("got one player", $scope.editPlayer)
+    $scope.player = MainFactory.player;
+    $scope.editPlayer = MainFactory.player;
+    MainFactory.getPlayer($routeParams.id);
   }
+
   $scope.add = function(){
     console.log($scope.newPlayer)
     MainFactory.insert('players',$scope.newPlayer,function(response){
@@ -208,6 +204,16 @@ leagueApp.controller('PlayerController', ['$location','$route','$scope', 'MainFa
   $scope.playersIndex = function(){
     MainFactory.get( 'players' ,function(response){
       $scope.players = response.data
+      for (each in $scope.players){
+        $scope.players[each].sportsList = function(){
+          var list=[];
+          for (one in $scope.players[each].sports){
+            list.push($scope.players[each].sports[one].sport)
+          }
+          return list.join(", ")
+        }()
+      }
+      console.log("Afterwards",$scope.players)
     });
   }
   $scope.playersIndex();
