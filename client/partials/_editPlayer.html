@@ -34,8 +34,7 @@
         <div class='form-group'>
           <div class='row'>
             <label class='col-md-offset-1 col-md-2'>Sports:</label>
-            <select multiple class='col-md-2' ng-model="editPlayer.sports">
-              <option ng-repeat="sport in sports" value="{{sport._id}}" >{{sport.sport}}</option>
+            <select multiple ng-model="editPlayer.sports" class='col-md-4' ng-options="sport.sport for sport in sports track by sport._id" ng-selected="hasSport(sport._id)">
             </select>
           </div>
         </div>

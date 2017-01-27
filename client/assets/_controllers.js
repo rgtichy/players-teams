@@ -214,14 +214,17 @@ leagueApp.controller('PlayerController', ['$location','$route','$scope', 'MainFa
     $scope.editPlayer = MainFactory.player;
     MainFactory.getPlayer($routeParams.id);
   }
-
   $scope.add = function(){
     console.log($scope.newPlayer)
     MainFactory.insert('players',$scope.newPlayer,function(response){
       $route.reload();
     })
   }
-
+  $scope.hasSport = function(sport_id){
+    var tmp = $scope.editPlayer.sports && !!$scope.editPlayer.sports.find(element => element._id === sport_id );
+    console.log(tmp,sport_id)
+    return tmp;
+  }
   $scope.playersIndex = function(){
     MainFactory.get( 'players' ,function(response){
       $scope.players = response.data
@@ -237,7 +240,7 @@ leagueApp.controller('PlayerController', ['$location','$route','$scope', 'MainFa
       console.log("Afterwards",$scope.players)
     });
   }
-  $scope.playersIndex();
+  // $scope.playersIndex();
 
   $scope.delete = function(){
     MainFactory.delete( 'players', $scope.editPlayer._id ,console.log);

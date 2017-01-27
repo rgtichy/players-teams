@@ -77,6 +77,10 @@ const PlayersController={
     .populate('sports')
     .exec()
     .then(function(playerObj){
+      var tmp = playerObj.sportsList;
+      playerObj = playerObj.toObject();
+      playerObj.sportsList = tmp;
+      console.log(playerObj.sportsList);
       res.json(playerObj);
     })
     .catch(function(err){
