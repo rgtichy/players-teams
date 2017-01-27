@@ -1,32 +1,31 @@
 div.li, .players {
   height: 2.5rem;
 }
+hr {
+  margin-top: .25rem;
+  margin-bottom: 1rem;
+}
 #filter {
   background-color: #DDD;
   padding-top: .5rem;
   padding-bottom: .5rem;
   border: 1px solid #CCC;
 }
-hr {
-  margin-top: .25rem;
-  margin-bottom: 1rem;
-
-}
 #ng-view {
   padding: .2rem;
   margin-top: .5rem;
-  height: 60rem;
+  /*height: 60rem;*/
   border-radius: 1rem;
   overflow-x: hidden;
   overflow-y: hidden;
   background-color: #EEE;
 }
+#ng-view hr {
+  border-color: #BBB;
+}
 .scroll-y {
   overflow-y: scroll;
   overflow-x: hidden;
-}
-#ng-view hr {
-  border-color: #BBB;
 }
 .capitalize {
   text-transform: capitalize;
@@ -34,16 +33,14 @@ hr {
 .form-group {
   vertical-align: bottom;
 }
-/*.filters {
-  background-color: #BBB;
-  height: 2.5rem;
-  border-radius: 3rem;
-}*/
 .btn-container{
   padding-top: .75rem;
 }
 #fifty-fifty{
-  height: 24rem;
+  /*height: 24rem;*/
+}
+#roster{
+  height: 23rem;
 }
 #players {
   height: 31rem;

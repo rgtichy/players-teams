@@ -73,7 +73,6 @@ const PlayersController={
     });
   },
   show: function(req,res){
-    console.log(req.params.id)
     Player.findById(req.params.id)
     .populate('sports')
     .exec()
@@ -116,8 +115,9 @@ const PlayersController={
     });
   },
   teamRoster: function(req,res){
-    Player.find(req.body)
-    .populate('sport')
+    Player.find({currentTeam:  req.params.team_id })
+    .populate('sports')
+    .populate('currentTeam')
     .exec()
     .then(function(rosterObj){
       res.json(rosterObj)
@@ -143,7 +143,14 @@ const PlayersController={
     // 1st remove player from any other teamName
     // 1.5th write a change record with timestamps for player history
     // 2nd add player onto the current team
-    console.log ("add player to team")
+    Player.findByIdAndUpdate(req.body._id, req.body, {runValidators: true, new:true})
+    .then(function(dataObj){
+      res.json(dataObj)
+    })
+    .catch(function(err){
+      res.status(500);
+      res.json(err);
+    });
   },
 }
 const TeamsController={

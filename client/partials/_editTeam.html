@@ -1,7 +1,7 @@
 <div>
   <div class='row'>
-    <h4 class='col-md-4'>Edit or Delete Team</h4>
-    <p class="col-md-4 text-left">Appearance: <span class='capitalize' ng-model="team.teamName">{{team.teamName}}</span></p>
+    <h4 class='col-md-4'>Edit or Delete:<span class='capitalize' > {{team.location}} {{team.teamName}}</span></h4>
+    <p class='col-md-6'>X</p>
   </div>
   <hr />
   <div class='row' id="fifty-fifty">
@@ -30,9 +30,11 @@
         </div>
       </form>
     </div>
-    <div class='col-md-6' id="roster">
-      <p class="col-md-offset-1 col-md-10 text-center"><b>Players</b></p>
-      <p ng-repeat="player in roster">{{ player.lastName }}, {{ player.firstName }}<span class='btn btn-xs btn-danger col-md-2'>Drop</span></p>
+    <div class='col-md-6 scroll-y' id="roster">
+      <table class='table table-striped'>
+        <tr class='row'><th class='col-md-8'>Player</th><th class='col-md-4'>Actions</th></tr>
+        <tr ng-repeat="player in roster" class='row'><td class='col-md-8'>{{ player.lastName}}, {{player.firstName}}</td><td class='col-md-2'><button ng-click="dropPlayer(player._id)"class='btn btn-xs btn-danger'>Remove</button></td></tr>
+      </table>
     </div>
   </div>
   <div id='players'>

@@ -9,6 +9,8 @@ leagueApp.controller('TeamController', ['$route','$scope', 'MainFactory', '$rout
   $scope.editTeam = {};
   $scope.teams = [];
   $scope.leagues = [];
+  $scope.roster=[];
+  $scope.available=[];
 
   $scope.sports=MainFactory.sports;
   MainFactory.sportsIndex();
@@ -44,13 +46,15 @@ leagueApp.controller('TeamController', ['$route','$scope', 'MainFactory', '$rout
     })
   }
   $scope.teamsIndex();
+
   $scope.getTeam = function(){
     MainFactory.getOne('teams',$routeParams.id, function(response){
       $scope.team = angular.copy(response.data);
       $scope.editTeam = angular.copy(response.data);
     });
-    MainFactory.find(`/team-roster/${$routeParams.id}`,{team:{_id:$routeParams.id}}, function(response){
+    MainFactory.find(`/team-roster/${$routeParams.id}`, function(response){
       $scope.roster = angular.copy(response.data);
+      console.log("Roster loaded:", $scope.roster)
     });
     MainFactory.get('/available',function(response){
       $scope.available = angular.copy(response.data);
@@ -66,16 +70,33 @@ leagueApp.controller('TeamController', ['$route','$scope', 'MainFactory', '$rout
     });
   }
   if ($routeParams.id !== undefined){
-    $scope.getTeam()
+    $scope.getTeam();
+    console.log("Roster: ",$scope.roster)
   }
   $scope.addStint = function(_id){
-    console.log($scope.available,"player" ,_id, "team",$routeParams.id)
-    // MainFactory.insert('stints',{team: team._id , player: playerId}, function(response){
-    //   var playerObj = angular.copy(response.data);
-    //   $scope.roster.push(playerObj);
-    //   var idx = $scope.available.indexOf(playerObj);
-    //   $scope.available.slice(idx,1);
-    // })
+    // console.log($scope.available,"player" ,_id, "team",$routeParams.id)
+    var playerObj = $scope.available.find(function(element){return element._id === _id });
+    var idx=$scope.available.indexOf(playerObj);
+    // console.log("update player: ",playerObj,idx)
+    playerObj.currentTeam = $routeParams.id;
+    MainFactory.update('players', playerObj , function(response){
+      // console.log(response)
+      playerObj=response.data;
+      $scope.roster.push(playerObj);
+      $scope.available.splice(idx,1);
+      $route.reload();
+    });
+  }
+  $scope.dropPlayer = function(_id){
+    var playerObj = $scope.roster.find(function(element){return element._id === _id });
+    var idx=$scope.roster.indexOf(playerObj);
+    delete playerObj.currentTeam;
+    MainFactory.update('players', { _id: _id , $unset: { currentTeam: "" } } , function(response){
+      // playerObj=response.data;
+      $scope.available.push(playerObj);
+      $scope.roster.splice(idx,1);
+      $route.reload();
+    });
   }
 }]);
 
