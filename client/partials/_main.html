@@ -1,3 +1,5 @@
 <ul>
-    <div class='row'  ng-repeat="element in sports"><li class='col-md-8'>Sport: <a href="#!/{{ element._id }}">{{ element.sport }}</a></li><a class='btn btn-xs btn-danger' ng-click="delete()" href="#!/{{ element._id }}/destroy">Delete</a></div>
+    <div class='row'  ng-repeat="element in sports">
+    	<li class='col-md-8'>Sport: <a href="#!/{{ element._id }}">{{ element.sport }}</a></li><a class='btn btn-xs btn-danger' ng-click="delete()" href="#!/{{ element._id }}/destroy">Delete</a>
+    </div>
 </ul>

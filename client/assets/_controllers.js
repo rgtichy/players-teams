@@ -71,6 +71,7 @@ leagueApp.controller('TeamController', ['$route','$scope', 'MainFactory', '$rout
   }
   if ($routeParams.id !== undefined){
     $scope.getTeam();
+    console.log($scope.editTeam)
     console.log("Roster: ",$scope.roster)
   }
   $scope.addStint = function(_id){
@@ -184,6 +185,9 @@ leagueApp.controller('LeagueController', ['$route','$scope', 'MainFactory', '$ro
     MainFactory.getOne('leagues',$routeParams.id, function(response){
       $scope.league = angular.copy(response.data);
       $scope.editLeague = angular.copy(response.data);
+      console.log("eL")
+      console.log($scope.editLeague)
+      console.log($scope.editLeague.sport)
     });
     MainFactory.find( `/league-teams/${$routeParams.id}`, function(response){
       $scope.leagueTeams = angular.copy(response.data)
@@ -191,7 +195,8 @@ leagueApp.controller('LeagueController', ['$route','$scope', 'MainFactory', '$ro
     })
   }
   if ($routeParams.id !== undefined){
-    $scope.getLeague()
+    console.log("X")
+    $scope.getLeague();
   }
 }]);
 

@@ -6,7 +6,7 @@
   <hr />
   <div class='row'>
     <div class='col-md-6'>
-      <form>
+      <form ng-submit="update()">
         <div class='form-group'>
           <div class='row'>
             <label class="col-md-2 text-right">Name:</label>
@@ -18,8 +18,8 @@
             <label class="col-md-2 text-right">Abbr:</label>
             <input class='col-md-2' type='text' ng-model="editLeague.abbr" value="{{ editLeague.abbr }}"/>
             <label class='text-right col-md-2'>Sport:</label>
-            <select class='col-md-2' ng-model="editLeague.sport">
-              <option ng-repeat="sport in sports" class='capitalize' value="{{ sport._id }}">{{ sport.sport }}</option>
+            <select class='col-md-2' ng-model="editLeague.sport" ng-options="row.sport for row in sports track by row._id">
+              <!-- <option ng-repeat="row in sports" class='capitalize' value="{{ row }}">{{ row.sport }}</option> -->
             </select>
             <label class='text-right col-md-2'>Gender:</label>
             <select class='col-md-2' ng-model="editLeague.gender">
